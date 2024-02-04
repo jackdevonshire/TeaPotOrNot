@@ -30,7 +30,7 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in {'png', 'jpg', 'jpeg'}
 
 
-@app.route('/brew', methods=['POST'])
+@app.route('/brew', methods=['POST', 'BREW'])
 def teapot_or_not():
     files = list(request.files.values())
     if len(files) == 0:
