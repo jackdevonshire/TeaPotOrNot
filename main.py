@@ -1,16 +1,24 @@
 from ultralytics import YOLO
 import json
 
-# Load a model
 model = YOLO('yolov8m-oiv7.pt')  # pretrained YOLOv8n model
 
-# Run batched inference on a list of images
-results = model('https://d27pcll2dx97vv.cloudfront.net/info/wp-content/uploads/2022/04/Shuiping.jpg')  # return a list of Results objects
 
-result = json.loads(results[0].tojson())
+def get_predictions(filepath):
+    results = model(filepath)
+    return json.loads(results[0].tojson())
 
-for classification in result:
-    name = classification["name"]
-    confidence = float(classification["confidence"])
 
-    print(name, confidence)
+def is_tea_pot(predictions):
+    for classification in predictions:
+        name = classification["name"]
+        confidence = float(classification["confidence"])
+
+        if name == "Teapot" and confidence > 0.8:
+            return True
+        else:
+            return False
+
+
+predictions = get_predictions("https://d27pcll2dx97vv.cloudfront.net/info/wp-content/uploads/2022/04/Shuiping.jpg")
+print(is_tea_pot(predictions))
