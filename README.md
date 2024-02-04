@@ -13,7 +13,7 @@ please set the content type to `multipart/formdata`
 curl --request BREW \
   --url http://127.0.0.1:5000/brew \
   --header 'Content-Type: multipart/form-data' \
-  --form 'teapot=@C:\path\to\image.png'
+  --form 'file=@C:\path\to\image.png'
 ```
 
 
