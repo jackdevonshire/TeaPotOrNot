@@ -1,5 +1,11 @@
 from ultralytics import YOLO
 import json
+import os
+from flask import Flask, flash, request, redirect, url_for, Response
+from werkzeug.utils import secure_filename
+
+app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = "/uploads"
 
 model = YOLO('yolov8m-oiv7.pt')  # pretrained YOLOv8n model
 
@@ -20,5 +26,25 @@ def is_tea_pot(predictions):
             return False
 
 
-predictions = get_predictions("https://d27pcll2dx97vv.cloudfront.net/info/wp-content/uploads/2022/04/Shuiping.jpg")
-print(is_tea_pot(predictions))
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in {'png', 'jpg', 'jpeg'}
+
+
+@app.route('/brew', methods=['POST'])
+def teapot_or_not():
+    files = list(request.files.values())
+    if len(files) == 0:
+        return Response("{'HasError': true, 'Message': 'No file provided'}", status=400, mimetype='application/json')
+
+    file = files[0]
+
+    if not allowed_file(file.filename):
+        return Response("{'HasError': true, 'Message': 'File type must be png, jpg or jpeg'}", status=400, mimetype='application/json')
+
+
+
+
+# predictions = get_predictions("https://d27pcll2dx97vv.cloudfront.net/info/wp-content/uploads/2022/04/Shuiping.jpg")
+# print(is_tea_pot(predictions))
+
+app.run()
