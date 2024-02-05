@@ -1,7 +1,7 @@
 import json
 import os
 
-from flask import Flask, request, Response
+from flask import Flask, request, jsonify
 from ultralytics import YOLO
 from werkzeug.utils import secure_filename
 
@@ -34,12 +34,12 @@ def allowed_file(filename):
 def teapot_or_not():
     files = list(request.files.values())
     if len(files) == 0:
-        return Response("{'HasError': true, 'Message': 'No file provided'}", status=400, mimetype='application/json')
+        return jsonify("{'HasError': true, 'Message': 'No file provided'}"), 400
 
     file = files[0]
 
     if not allowed_file(file.filename):
-        return Response("{'HasError': true, 'Message': 'File type must be png, jpg or jpeg'}", status=400, mimetype='application/json')
+        return jsonify("{'HasError': true, 'Message': 'File type must be png, jpg or jpeg'}"), 400
 
     # Save file to system
     filename = secure_filename(file.filename)
@@ -54,11 +54,11 @@ def teapot_or_not():
 
     # Provide a response
     if teapot:
-        return Response("{'HasError': false, 'Message': 'I'm a teapot'}", status=418, mimetype='application/json')
+        return jsonify("{'HasError': false, 'Message': 'I'm a teapot'}"), 418
     if coffee_machine:
-        return Response("{'HasError': false, 'Message': 'Here's your coffee! ☕'}", status=200, mimetype='application/json')
+        return jsonify("{'HasError': false, 'Message': 'Here's your coffee! ☕'}"), 200
     else:
-        return Response("{'HasError': false, 'Message': 'I'm not a teapot'}", status=200, mimetype='application/json')
+        return jsonify("{'HasError': false, 'Message': 'I'm not a teapot'}"), 200
 
 
 app.run()
