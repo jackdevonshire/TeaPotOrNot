@@ -20,9 +20,9 @@ curl --request BREW \
 ### Success Responses
 When file is a picture of a teapot
 ```javascript
-    HTCPCP/1.0 418
-    Content-Type: application/json
-    {'HasError': false, 'Message': 'I'm a teapot'}
+HTCPCP/1.0 418
+Content-Type: application/json
+{'HasError': false, 'Message': 'I'm a teapot'}
 ```
 When file is a picture of a coffee machine
 ```javascript
