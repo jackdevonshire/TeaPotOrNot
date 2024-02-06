@@ -26,29 +26,29 @@ When file is a picture of a teapot
 ```
 When file is a picture of a coffee machine
 ```javascript
-    HTCPCP/1.0 200
-    Content-Type: application/json
-    {'HasError': false, 'Message': 'Here's your coffee! ☕'}
+HTCPCP/1.0 200
+Content-Type: application/json
+{'HasError': false, 'Message': 'Here's your coffee! ☕'}
 ```
 When file is not a teapot or a coffee machine
 ```javascript
-    HTCPCP/1.0 200
-    Content-Type: application/json
-    {'HasError': false, 'Message': 'I'm not a teapot'}
+HTCPCP/1.0 200
+Content-Type: application/json
+{'HasError': false, 'Message': 'I'm not a teapot'}
 ```
 
 ### Error Responses
 When no files are provided
 ```javascript
-    HTCPCP/1.0 400
-    Content-Type: application/json
-    {'HasError': true, 'Message': 'No file provided'}
+HTCPCP/1.0 400
+Content-Type: application/json
+{'HasError': true, 'Message': 'No file provided'}
 ```
 When file is not in the correct format
 ```javascript
-    HTCPCP/1.0 400
-    Content-Type: application/json
-    {'HasError': true, 'Message': 'File type must be png, jpg or jpeg'}
+HTCPCP/1.0 400
+Content-Type: application/json
+{'HasError': true, 'Message': 'File type must be png, jpg or jpeg'}
 ```
 
 ## Why?
